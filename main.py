@@ -19,5 +19,11 @@ try:
     skip_button.click()
 except:
     driver.quit()
-
+try:
+    newest_article = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.XPATH, "//span[contains(text(), 'code')]"))    
+    )
+    newest_article.click()
+except:
+    print("NOT FOUND")
 #driver.quit()
