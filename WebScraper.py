@@ -58,6 +58,6 @@ class WebScraper:
                 )
                 # code.click()
                 link = code.get_attribute('href')
-                print(link)
+                return link
             except:
                 print("Code link not found")

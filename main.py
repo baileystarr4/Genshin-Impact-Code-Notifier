@@ -1,5 +1,9 @@
 from WebScraper import *
+from Notifier import *
 
 web_scraper = WebScraper()
 
-web_scraper.find_code_and_link()
+link = web_scraper.find_code_and_link()
+
+notifier = Notifier()
+notifier.send_email(link)
