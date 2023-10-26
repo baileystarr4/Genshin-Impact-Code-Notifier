@@ -1,9 +1,6 @@
-from WebScraper import *
-from Notifier import *
+from website import create_app
 
-web_scraper = WebScraper()
+app = create_app()
 
-link = web_scraper.find_code_and_link()
-
-notifier = Notifier()
-# notifier.send_sms_via_email(link=link, number="NUMBER", provider="AT&T")
+if __name__ == '__main__':
+    app.run(debug=True)
