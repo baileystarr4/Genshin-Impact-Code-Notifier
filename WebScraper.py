@@ -26,12 +26,12 @@ class WebScraper:
             # Look for the close button on the login pop-up and click when found.
             try:
                 close_button = WebDriverWait(self.driver, 10).until(
-                    EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/button'))    
+                    EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/button'))    
                 )
                 close_button.click()
             except:
-                print("Close button not found")
-
+                print("Close button not found.")
+            
             # Look for skip button on pop-up and click when found.
             try:
                 self.driver.switch_to.default_content()
@@ -39,8 +39,11 @@ class WebScraper:
                     EC.presence_of_element_located((By.XPATH, '//*[@id="__layout"]/div/div[3]/div/div/div/div[1]/div/button'))    
                 )
                 skip_button.click()
+            # Fixing close button bug where the scraper would move on without clicking close    
             except:
-                print("Skip button not found")
+                print("Close button not clicked. Reopening browser")
+                self.driver.quit()
+                return self.find_code_and_link()
 
             # Look for newest article mentioning a code and click when found.    
             try:
@@ -58,6 +61,7 @@ class WebScraper:
                 )
                 # code.click()
                 link = code.get_attribute('href')
+                self.driver.quit()
                 return link
             except:
                 print("Code link not found")
