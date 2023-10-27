@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+  <form method="POST">
+    <h3 align="center">Sign Up</h3>
+    <div class="form-group">
+      <label for="phone_number">Phone Number</label>
+      <input
+        type="phone_number"
+        class="form-control"
+        id="phone_number"
+        name="phone_number"
+        placeholder="Enter phone number"
+      />
+    </div>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="firstName"
+        name="firstName"
+        placeholder="Enter first name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="carrier">Carrier</label>
+      <input
+        type="carrier"
+        class="form-control"
+        id="carrier"
+        name="carrier"
+        placeholder="Choose carrier"
+      />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  {% endblock %}
