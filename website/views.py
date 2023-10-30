@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, flash
 from .models import User
 from . import db
-import json
 
 views = Blueprint('views', __name__)
 
