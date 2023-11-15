@@ -6,7 +6,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 class Spreadsheet:
-    SCOPES = ["http://googleapis.com/auth/spreadsheets"]
+    SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
     CODE_SPREADSHEET_ID  = "1PSw3drnP-2jTlfbcF54P_xqZb937-6nXjoo6VRZt5pw"
     USER_DATA_SPREADSHEET_ID = "17buirFEEmgc8DctZV4XvIUaIK2JfUH_hbPgy0W0s40s"
 
@@ -30,3 +30,44 @@ class Spreadsheet:
             # Save the credentials for the next run
             with open("token.json", "w") as token:
                 token.write(self.creds.to_json())
+    
+    def read_code_spreadsheet(self):
+        try:
+            service = build("sheets", "v4", credentials=self.creds)
+
+            sheet = service.spreadsheets()
+            result = (
+                sheet.values()
+                .get(spreadsheetId=self.CODE_SPREADSHEET_ID, range="Sheet1")
+                .execute()
+            )
+            values = result.get("values", [])
+
+            if not values:
+                print("No data found.")
+                return
+            
+            return values
+
+        except HttpError as err:
+            print(err)
+
+    def read_user_data_spreadsheet(self):
+        try:
+            service = build("sheets", "v4", credentials=self.creds)
+
+            sheet = service.spreadsheets()
+            result = (
+                sheet.values()
+                .get(spreadsheetId=self.USER_DATA_SPREADSHEET_ID, range="Sheet1")
+                .execute()
+            )
+            values = result.get("values", [])
+
+            if not values:
+                print("No data found.")
+                return
+            return values
+
+        except HttpError as err:
+            print(err)
