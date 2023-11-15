@@ -1,59 +1,12 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
-%}
-  <form method="POST">
-    <h3 align="center">Sign Up</h3>
-    <div class="form-group">
-      <label for="phone_number">Phone Number</label>
-      <input
-        type="phone_number"
-        class="form-control"
-        id="phone_number"
-        name="phone_number"
-        placeholder="Enter phone number"
-      />
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+  <h1 align="center">Welcome to the Genshin Code Notifier!</h1>
+  <div class="row justify-content-center mt-5">
+    <div class="col-sm-6 col-md-5 col-lg-4 text-center">
+      <p class="fw-bold">Never miss another Genshin code again!</p>
+      <p>Click sign up below to add your phone number to our list to be notified when new codes are released!</p>
     </div>
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="firstName"
-        name="firstName"
-        placeholder="Enter first name"
-      />
-    </div>
-    <div class="form-group">
-      <label for="carrier">Carrier</label>
-      <select
-        type="carrier"
-        class="form-control"
-        id="carrier"
-        name="carrier"
-        placeholder="Choose carrier"
-      >
-      <option selected>Choose a carrier</option>
-      <option value="AT&T">AT&T</option>
-      <option value="Boost Mobile">Boost Mobile</option>
-      <option value="C-Spire">C-Spire</option>
-      <option value="Cricket Wireless">Cricket Wireless</option>
-      <option value="Consumer Cellular">Consumer Cellular</option>
-      <option value="Google Project Fi">Google Project Fi</option>
-      <option value="Metro PCS">Metro PCS</option>
-      <option value="Mint Mobile">Mint Mobile</option>
-      <option value="Page Plus">Page Plus</option>
-      <option value="Republic Wireless">"Republic Wireless</option>
-      <option value="Sprint">Sprint</option>
-      <option value="Straight Talk">Straight Talk</option>
-      <option value="T-Mobile">T-Mobile</option>
-      <option value="Ting">Ting</option>
-      <option value="Tracfone">Tracfone</option>
-      <option value="U.S. Cellular">U.S. Cellular</option>
-      <option value="Verizon">Verizon</option>
-      <option value="Virgin Mobile">Virgin Mobile</option>
-      <option value="Xfinity Mobile">Xfinity Mobile</option>
-      </select>
-    </div>
-    <br />
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  </div>
+  <div class="text-center mt-4">
+    <a class="btn btn-outline-light" role="button" href="/sign_up">Sign Up</a>
+  </div>
   {% endblock %}
