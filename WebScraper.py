@@ -17,7 +17,7 @@ class WebScraper:
             # Look for the iframe where the login popup is located
             try:
                 iframe = WebDriverWait(self.driver, 10).until(
-                    EC.presence_of_element_located((By.ID, 'hyv-account-frame'))
+                    EC.presence_of_element_located((By.ID, 'hyv-account-sdk-frame'))
                 )
                 self.driver.switch_to.frame(iframe)
             except:
