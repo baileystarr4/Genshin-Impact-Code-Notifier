@@ -71,3 +71,21 @@ class Spreadsheet:
 
         except HttpError as err:
             print(err)
+            
+    def write_to_code_spreadsheet(self, link):
+        try:
+            service = build("sheets", "v4", credentials=self.creds)
+            sheet = service.spreadsheets()
+            sheet.values().append(spreadsheetId=self.CODE_SPREADSHEET_ID, range="Sheet1", valueInputOption="USER_ENTERED", body={"values": [[f"{link}"]]}).execute()
+
+        except HttpError as err:
+            print(err)
+
+    def write_to_user_data_spreadsheet(self, user_data_list):
+        try:
+            service = build("sheets", "v4", credentials=self.creds)
+            sheet = service.spreadsheets()
+            sheet.values().append(spreadsheetId=self.USER_DATA_SPREADSHEET_ID, range="Sheet1", valueInputOption="USER_ENTERED", body={"values": [user_data_list]}).execute()
+
+        except HttpError as err:
+            print(err)
