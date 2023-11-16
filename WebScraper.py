@@ -6,8 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 class WebScraper:
     def __init__(self):
         self.chrome_options = webdriver.ChromeOptions()
-        self.chrome_options.add_experimental_option("detach", True)
-
+        # self.chrome_options.add_experimental_option("detach", True)
+        self.chrome_options.add_argument('headless')
         self.driver = webdriver.Chrome(options=self.chrome_options)
 
     def find_links(self):
