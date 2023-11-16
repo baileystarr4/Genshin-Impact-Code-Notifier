@@ -92,3 +92,19 @@ class Spreadsheet:
                 break
         return user_row
     
+    def delete_user(self, user_row):
+        request_body = {
+            "requests" :[
+                {
+                "deleteDimension": {
+                    "range": {
+                        "sheetId": 0,
+                        "dimension": "ROWS",
+                        "startIndex": user_row,
+                        "endIndex": user_row + 1
+        }}}]}              
+        
+        service = build("sheets", "v4", credentials=self.creds)
+        sheet = service.spreadsheets()
+        deleting = sheet.batchUpdate(spreadsheetId=self.USER_DATA_SPREADSHEET_ID, body=request_body)
+        deleting.execute()
