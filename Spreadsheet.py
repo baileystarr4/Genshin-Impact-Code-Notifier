@@ -12,12 +12,10 @@ class Spreadsheet:
 
     def __init__(self):
         self.creds = None
-        # The file token.json stores the user's access and refresh tokens, and is
-        # created automatically when the authorization flow completes for the first
-        # time.
+
         if os.path.exists("token.json"):
             self.creds = Credentials.from_authorized_user_file("token.json", self.SCOPES)
-        # If there are no (valid) credentials available, let the user log in.
+
         if not self.creds or not self.creds.valid:
             if self.creds and self.creds.expired and self.creds.refresh_token:
                 self.creds.refresh(Request())
@@ -27,7 +25,6 @@ class Spreadsheet:
                 )
                 self.creds = flow.run_local_server(port=0)
 
-            # Save the credentials for the next run
             with open("token.json", "w") as token:
                 token.write(self.creds.to_json())
     
@@ -43,9 +40,6 @@ class Spreadsheet:
             )
             values = result.get("values", [])
 
-            if not values:
-                print("No data found.")
-                return
             
             return values
 
@@ -64,9 +58,6 @@ class Spreadsheet:
             )
             values = result.get("values", [])
 
-            if not values:
-                print("No data found.")
-                return
             return values
 
         except HttpError as err:
@@ -89,3 +80,15 @@ class Spreadsheet:
 
         except HttpError as err:
             print(err)
+
+    def find_user(self, phone_number):
+        data = self.read_user_data_spreadsheet()
+        user_row = -1
+        for i in range(len(data)):
+            if i == 0:
+                continue
+            if phone_number in data[i]:
+                user_row = i
+                break
+        return user_row
+    
