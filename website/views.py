@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash
-from . import db
+from Spreadsheet import *
 
 views = Blueprint('views', __name__)
 
@@ -12,23 +12,20 @@ def sign_up():
     if request.method == 'POST':
         phone_number = request.form.get('phone_number')
         first_name = request.form.get('firstName')
-        carrier = request.form.get('carrier')
+        provider = request.form.get('provider')
         password2 = request.form.get('password2')
-
-        # user = User.query.filter_by(phone_number=phone_number).first()
-        if user:
+        spreadsheet = Spreadsheet()
+        if spreadsheet.find_user(phone_number) != -1:
             flash('Phone number already exists.', category='error')
         elif len(phone_number) < 9:
             flash('Phone number must be 9 digits.', category='error')
         elif len(first_name) < 2:
             flash('First name must be greater than 1 character.', category='error')
-        elif carrier == "Other":
+        elif provider == "Other":
             flash('Carrier not currently supported.', category='error')
         else:
-            # new_user = User(phone_number=phone_number, first_name=first_name, carrier=carrier)
-            # db.session.add(new_user)
-            # db.session.commit()
-            flash('Success! You will receive your first notifiction shortly.', category='success')
+            spreadsheet.write_to_user_data_spreadsheet([phone_number,first_name, provider])
+            flash('Success! You will receive a text notification when a new code is released.', category='success')
 
     return render_template("sign_up.html")
 
@@ -37,16 +34,15 @@ def unsubscribe():
     if request.method == 'POST':
         phone_number = request.form.get('phone_number')
         sure_check = request.form.get('sure_check')
-        # user = User.query.filter_by(phone_number=phone_number).first()
+        spreadsheet = Spreadsheet()
         if len(phone_number) < 9:
             flash('Phone number must be 9 digits.', category='error')
         elif not sure_check:
             flash('Please check the "are you sure box".', category='error')
-        # elif not user:
-        #     flash('This phone number does not exist in our database. Please try again', category='error')
-        # else:
-        #     db.session.delete(user)
-        #     db.session.commit()
+        elif spreadsheet.find_user(phone_number) == -1:
+            flash('This phone number does not exist in our database. Please try again', category='error')
+        else:
+            spreadsheet.delete_user(phone_number)
             flash('Success. You will no longer receive text notifications.', category='success')
 
     return render_template('unsubscribe.html')
