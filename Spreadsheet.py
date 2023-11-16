@@ -94,8 +94,7 @@ class Spreadsheet:
     
     def delete_user(self, user_row):
         request_body = {
-            "requests" :[
-                {
+            "requests" :[{
                 "deleteDimension": {
                     "range": {
                         "sheetId": 0,
