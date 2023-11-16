@@ -10,7 +10,7 @@ class WebScraper:
 
         self.driver = webdriver.Chrome(options=self.chrome_options)
 
-    def find_code_and_link(self):
+    def find_links(self):
         # Open Brutefact's Redeem Codes and Web Events collection page on the Hoyolab website
             self.driver.get("https://www.hoyolab.com/creatorCollection/535336")
 
@@ -56,12 +56,13 @@ class WebScraper:
 
             # Look for the code link and click when found.
             try:
-                code = WebDriverWait(self.driver, 10).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, "a[href^='https://genshin.hoyoverse.com/en/gift']"))    
+                codes = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_all_elements_located((By.CSS_SELECTOR, "a[href^='https://genshin.hoyoverse.com/en/gift']"))    
                 )
-                # code.click()
-                link = code.get_attribute('href')
+                links = []
+                for link in codes:
+                    links.append(link.get_attribute('href'))
                 self.driver.quit()
-                return link
+                return links
             except:
                 print("Code link not found")
