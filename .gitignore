@@ -1,2 +1,5 @@
-
 *.pyc
+token.json
+credentials.json
+Notifier.py
+
