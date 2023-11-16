@@ -67,7 +67,7 @@ class Spreadsheet:
         try:
             service = build("sheets", "v4", credentials=self.creds)
             sheet = service.spreadsheets()
-            sheet.values().append(spreadsheetId=self.CODE_SPREADSHEET_ID, range="Sheet1", valueInputOption="USER_ENTERED", body={"values": [[f"{link}"]]}).execute()
+            sheet.values().append(spreadsheetId=self.CODE_SPREADSHEET_ID, range="Sheet1", valueInputOption="USER_ENTERED", body={"values": [[link]]}).execute()
 
         except HttpError as err:
             print(err)
@@ -84,9 +84,7 @@ class Spreadsheet:
     def find_user(self, phone_number):
         data = self.read_user_data_spreadsheet()
         user_row = -1
-        for i in range(len(data)):
-            if i == 0:
-                continue
+        for i in range(1, len(data)):
             if phone_number in data[i]:
                 user_row = i
                 break
