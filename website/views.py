@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template, request, flash
 from Spreadsheet import *
+from Notifier import *
 
 views = Blueprint('views', __name__)
+notifier = Notifier()
 
 @views.route('/', methods=['GET'])
 def home():
@@ -26,7 +28,8 @@ def sign_up():
             flash('Carrier not currently supported.', category='error')
         else:
             spreadsheet.write_to_user_data_spreadsheet([phone_number,first_name, provider])
-            flash('Success! You will receive a text notification when a new code is released.', category='success')
+            flash('Success! You will receive text notifications when a new code is released.', category='success')
+            notifier.send_welcome_text(phone_number, first_name, provider)
 
     return render_template("sign_up.html")
 
@@ -46,7 +49,6 @@ def unsubscribe():
         else:
             spreadsheet.delete_user(user_row)
             flash('Success. You will no longer receive text notifications.', category='success')
-
     return render_template('unsubscribe.html')
 
 @views.route('/about_me', methods=['GET'])
