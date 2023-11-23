@@ -10,9 +10,9 @@ saved_codes = spreadsheet.read_code_spreadsheet()
  
 last_code = len(saved_codes) - 1
 
-# if the last link scraped is not the last link in the spreadsheet, add the links to the spread sheet
+# if the last link scraped is not the last link in the spreadsheet, add the links to the spread sheet and send a text
 if links[-1] != saved_codes[last_code][0]:
     notifier = Notifier()
+    notifier.send_links(links)
     for link in links:
-        notifier.send_sms_via_email(link)
         spreadsheet.write_to_code_spreadsheet(link)
