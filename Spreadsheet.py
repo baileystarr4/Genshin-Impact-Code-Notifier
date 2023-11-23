@@ -7,8 +7,8 @@ from googleapiclient.errors import HttpError
 
 class Spreadsheet:
     SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-    CODE_SPREADSHEET_ID  = "1PSw3drnP-2jTlfbcF54P_xqZb937-6nXjoo6VRZt5pw"
-    USER_DATA_SPREADSHEET_ID = "17buirFEEmgc8DctZV4XvIUaIK2JfUH_hbPgy0W0s40s"
+    CODE_SPREADSHEET_ID  = "1pzaPUevokjaAhqlbrWtMzGRmqROERt5DmFA7SmfbVkI"
+    USER_DATA_SPREADSHEET_ID = "1Q9aaVUh3Lo2WbTL90UKK5rFjbrdI5L6zw33NF7xHigI"
 
     def __init__(self):
         self.creds = None
