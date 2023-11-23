@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from Notifier import *
 
 class WebScraper:
     def __init__(self):
@@ -9,6 +10,7 @@ class WebScraper:
         # self.chrome_options.add_experimental_option("detach", True)
         self.chrome_options.add_argument('headless')
         self.driver = webdriver.Chrome(options=self.chrome_options)
+        self.error_notifier = Notifier()
 
     def find_links(self):
         # Open Brutefact's Redeem Codes and Web Events collection page on the Hoyolab website
@@ -21,7 +23,9 @@ class WebScraper:
                 )
                 self.driver.switch_to.frame(iframe)
             except:
-                print("Frame not found")
+                error_message = "Frame not found"
+                self.error_notifier.send_error(error_message)
+                return
 
             # Look for the close button on the login pop-up and click when found.
             try:
@@ -30,7 +34,9 @@ class WebScraper:
                 )
                 close_button.click()
             except:
-                print("Close button not found.")
+                error_message = "Close button not found."
+                self.error_notifier.send_error(error_message)
+                return
             
             # Look for skip button on pop-up and click when found.
             try:
@@ -41,9 +47,9 @@ class WebScraper:
                 skip_button.click()
             # Fixing close button bug where the scraper would move on without clicking close    
             except:
-                print("Close button not clicked. Reopening browser")
-                self.driver.quit()
-                return self.find_code_and_link()
+                error_message = "Close button not clicked."
+                self.error_notifier.send_error(error_message)
+                return
 
             # Look for newest article mentioning a code and click when found.    
             try:
@@ -52,7 +58,9 @@ class WebScraper:
                 )
                 newest_article.click()
             except:
-                print("Code article not found")
+                error_message = "Code article not found"
+                self.error_notifier.send_error(error_message)
+                return
 
             # Look for the code link and click when found.
             try:
@@ -65,4 +73,6 @@ class WebScraper:
                 self.driver.quit()
                 return links
             except:
-                print("Code link not found")
+                error_message = "Code link not found"
+                self.error_notifier.send_error(error_message)
+                return
