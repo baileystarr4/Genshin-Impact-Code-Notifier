@@ -1,16 +1,13 @@
 from flask import Blueprint, render_template, request, flash
 from Spreadsheet import *
 from Notifier import *
+from emailer import *
 
 views = Blueprint('views', __name__)
 notifier = Notifier()
 
-@views.route('/', methods=['GET'])
+@views.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template("home.html")
-
-@views.route('/sign_up', methods=['GET', 'POST'])
-def sign_up():
     if request.method == 'POST':
         phone_number = request.form.get('phone_number')
         first_name = request.form.get('firstName')
@@ -30,8 +27,7 @@ def sign_up():
             spreadsheet.write_to_user_data_spreadsheet([phone_number,first_name, provider])
             flash('Success! You will receive text notifications when a new code is released.', category='success')
             notifier.send_welcome_text(phone_number, first_name, provider)
-
-    return render_template("sign_up.html")
+    return render_template("home.html")
 
 @views.route('/unsubscribe', methods=['GET', 'POST'])
 def unsubscribe():
@@ -51,6 +47,25 @@ def unsubscribe():
             flash('Success. You will no longer receive text notifications.', category='success')
     return render_template('unsubscribe.html')
 
-@views.route('/about_me', methods=['GET'])
-def about_me():
-    return render_template("about_me.html")
+@views.route('/contact_me', methods=['GET', 'POST'])
+def contact_me():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        subject = request.form.get('subject')
+        body = request.form.get('body')
+        
+
+        if not name:
+            flash('Please enter your name.', category='error')
+        elif not email:
+            flash('Please enter your email.', category='error')
+        elif not subject:
+            flash('Please enter a subject.', category='error')
+        elif not body:
+            flash('Please enter a message.', category='error')
+        else:
+            emailer = Emailer(name, email, subject, body)
+            emailer.send_email()
+            flash('Thank you for your feedback. I will respond via email as soon as possible.', category='success')
+    return render_template("contact_me.html")
