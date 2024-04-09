@@ -1,0 +1,59 @@
+{% extends "base.html" %} {% block title %}Contact Me{% endblock %} {% block content%}
+  <div class="container">
+    <h2 class="mt-5">Contact Me</h2>
+    <p class="pt-1 pb-3">Have any feedback? Fill out the form below.</p>
+
+    <form method="POST">
+      <div class="container pb-5 ps-5 pe-5 pt-4" 
+           style="border-style: solid; color: #F5FFFF; border-color: #F5FFFF; background-color: #5B8DCE;">
+
+        <div class="row pt-4">
+          <div class="col ps-4">
+            <label for="name" class="form-label">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+            />
+          </div>
+          <div class="col ps-4">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+            />
+          </div>
+        </div>
+
+        <div class="row pt-4">
+          <div class="col ps-4">
+            <label for="subject" class="form-label">Subject</label>
+            <input
+              type="text"
+              class="form-control"
+              id="subject"
+              name="subject"
+            />
+          </div>
+        </div>
+
+        <div class="row pt-3">
+          <div class="col ps-4">
+            <label for="body" class="form-label">Message</label>
+            <textarea
+              rows="10"
+              type="text"
+              class="form-control"
+              id="body"
+              name="body"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="text-center m-5"><button type="submit" class="btn btn-lg btn-light p-2">Submit</button></div>
+    </form>
+  </div>
+{% endblock %}
