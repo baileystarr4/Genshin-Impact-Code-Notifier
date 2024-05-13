@@ -1,0 +1,47 @@
+{% extends "base.html" %} 
+
+{% block title %}Contact Me{% endblock %} 
+
+{% block content%}
+  <div class="contact_me container">
+    <h2 class="mt-5">Contact Me</h2>
+    <p class="pt-1 pb-3">Have any feedback or want to get in touch? 
+                         Fill out the form below.</p>
+
+    <form method="POST">
+      {% csrf_token %}
+      <div class="container border rounded border-4 p-5 large_box">
+        <div class="row">
+          <div class="col pe-5">
+            <label for="name" class="form-label">Name</label>
+            <div id="name">{{ form.name }}</div>
+          </div>
+          <div class="col ps-5">
+            <label for="email" class="form-label">Email</label>
+            <div id="email">{{ form.email }}</div>
+          </div>
+        </div>
+
+        <div class="row pt-4">
+          <div class="col">
+            <label for="subject" class="form-label">Subject</label>
+            <div id="subject">{{ form.subject }}</div>
+          </div>
+        </div>
+
+        <div class="row pt-4">
+          <div class="col">
+            <label for="body" class="form-label">Message</label>
+            <div id="body">{{ form.body }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="m-5">
+        <button type="submit" class="btn btn-lg button p-2">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
