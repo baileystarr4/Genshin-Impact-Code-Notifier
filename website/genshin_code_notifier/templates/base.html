@@ -25,7 +25,7 @@
 
     <nav class="navbar sticky-top navbar-expand-lg border-bottom pe-4 ps-4">
       <!-- nav brand / title -->
-      <a class="navbar-brand" href="/">
+      <a class="navbar-brand m-0" href="/">
         <span class="nav_brand tw-bold white_text">
           <img src="{% static '/images/Primogem.ico' %}" class="nav_img">
           Genshin Code Notifier
@@ -33,7 +33,7 @@
       </a>
 
       <button
-        class="navbar-toggler nav_tog"
+        class="navbar-toggler nav_tog p-0"
         type="button"
         data-bs-toggle="collapse" 
         data-bs-target="#navbar" 
@@ -99,7 +99,7 @@
     {% endif %}
     
     <!-- main content -->
-    <div class="wrapper flex-grow-1 align-content-center text-center" >
+    <div class="wrapper flex-grow-1 align-content-center text-center m-3" >
       {% block content %} {% endblock %}
     </div>
 
