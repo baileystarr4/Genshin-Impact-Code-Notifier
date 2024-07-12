@@ -18,6 +18,7 @@ class WebScraper:
         self.chrome_options = webdriver.ChromeOptions()
 
         self.chrome_options.add_argument('headless')
+        self.chrome_options.add_argument("--log-level=3")
         self.driver = webdriver.Chrome(options=self.chrome_options)
         self.error_notifier = Notifier()
         
@@ -45,7 +46,7 @@ class WebScraper:
 
         # # Look for the iframe where the login popup is located
         # try:
-            # iframe = WebDriverWait(self.driver, 10).until(
+            # iframe = WebDriverWait(self.driver, 60).until(
             #     EC.presence_of_element_located((
             #         By.ID, 'hyv-account-sdk-frame'))
             # )
@@ -53,11 +54,12 @@ class WebScraper:
         # except:
         #     error_message = "Frame not found"
         #     # self.error_notifier.send_error(error_message)
-        #     return error_message
+        #     self.driver.quit()
+        #     return
 
         # Look for the close button on the login pop-up and click when found.
         # try:
-        #     close_button = WebDriverWait(self.driver, 10).until(
+        #     close_button = WebDriverWait(self.driver, 60).until(
         #         EC.element_to_be_clickable((
         #             By.XPATH, '/html/body/div[2]/div/div/button'))    
         #     )
@@ -65,12 +67,13 @@ class WebScraper:
         # except:
         #     error_message = "Close button not found."
         #     # self.error_notifier.send_error(error_message)
-        #     return error_message
+        #     self.driver.quit()
+        #     return
         
         # Look for skip button on pop-up and click when found.
         try:
             self.driver.switch_to.default_content()
-            skip_button = WebDriverWait(self.driver, 10).until(
+            skip_button = WebDriverWait(self.driver, 60).until(
                 EC.presence_of_element_located((
                     By.XPATH, 
                     '/html/body/div[1]/div/div/div[3]/div/div/div/div[1]/button'))    
@@ -79,11 +82,11 @@ class WebScraper:
         except:
             error_message = "Skip button not clicked."
             self.error_notifier.send_error(error_message)
-            return 
-
+            self.driver.quit()
+            return
         # Look for newest article mentioning a code and click when found.    
         try:
-            newest_article = WebDriverWait(self.driver, 10).until(
+            newest_article = WebDriverWait(self.driver, 60).until(
                 EC.presence_of_element_located((
                     By.XPATH, 
                     "//span[contains(@title, 'Code')]"))    
@@ -92,11 +95,12 @@ class WebScraper:
         except:
             error_message = "Code article not found"
             self.error_notifier.send_error(error_message)
+            self.driver.quit()
             return
 
         # Look for the code link, click when found, and return the links.
         try:
-            codes = WebDriverWait(self.driver, 10).until(
+            codes = WebDriverWait(self.driver, 60).until(
                 EC.presence_of_all_elements_located((
                     By.CSS_SELECTOR, 
                     "a[href^='https://genshin.hoyoverse.com/en/gift']")))
@@ -107,5 +111,6 @@ class WebScraper:
         except:
             error_message = "Code link not found"
             self.error_notifier.send_error(error_message)
-            return 
+            self.driver.quit()
+            return
             
