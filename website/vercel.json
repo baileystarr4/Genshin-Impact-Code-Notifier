@@ -1,7 +1,7 @@
 {
     "builds": [
       {
-        "src": "website/website/wsgi.py",
+        "src": "website/wsgi.py",
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "15mb"}
       }
@@ -9,10 +9,10 @@
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/website/website/wsgi.py"
+        "dest": "/website/wsgi.py"
       },
       {
-        "src": "/website/static/(.*)",
+        "src": "/static/(.*)",
         "dest": "/static/$1"
       }
     ]
