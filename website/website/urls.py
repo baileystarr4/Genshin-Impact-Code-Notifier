@@ -23,4 +23,3 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("genshin_code_notifier.urls"))
 ]
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
