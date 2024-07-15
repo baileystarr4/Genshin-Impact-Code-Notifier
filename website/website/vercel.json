@@ -1,0 +1,19 @@
+{
+    "builds": [{
+        "src": "website/wsgi.py",
+        "use": "@vercel/python",
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+    }],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "website/wsgi.py"
+        }
+    ],
+    "crons": [
+        {
+            "path": "/scripts/cron.py",
+            "schedule": "0 8 * * *"
+        }
+    ]
+}
