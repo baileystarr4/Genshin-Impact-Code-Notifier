@@ -19,5 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("genshin_code_notifier.urls"))
+    path("", include("website.genshin_code_notifier.urls"))
 ]
