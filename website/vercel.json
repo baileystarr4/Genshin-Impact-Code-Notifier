@@ -11,5 +11,11 @@
         "src": "/(.*)",
         "dest": "website/wsgi.py"
       }
-    ]
+    ],
+      "crons": [
+        {
+          "path": "/scripts/cron.py",
+          "schedule": "0 12 * * *"
+        }
+      ]
   }
