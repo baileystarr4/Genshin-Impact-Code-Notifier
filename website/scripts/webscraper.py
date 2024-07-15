@@ -74,7 +74,7 @@ class WebScraper:
         try:
             self.driver.switch_to.default_content()
             skip_button = WebDriverWait(self.driver, 60).until(
-                EC.presence_of_element_located((
+                EC.element_to_be_clickable((
                     By.XPATH, 
                     '/html/body/div[1]/div/div/div[3]/div/div/div/div[1]/button'))    
             )
@@ -87,7 +87,7 @@ class WebScraper:
         # Look for newest article mentioning a code and click when found.    
         try:
             newest_article = WebDriverWait(self.driver, 60).until(
-                EC.presence_of_element_located((
+                EC.element_to_be_clickable((
                     By.XPATH, 
                     "//span[contains(@title, 'Code')]"))    
             )
@@ -101,7 +101,7 @@ class WebScraper:
         # Look for the code link, click when found, and return the links.
         try:
             codes = WebDriverWait(self.driver, 60).until(
-                EC.presence_of_all_elements_located((
+                EC.visibility_of_all_elements_located((
                     By.CSS_SELECTOR, 
                     "a[href^='https://genshin.hoyoverse.com/en/gift']")))
             for link in codes:
