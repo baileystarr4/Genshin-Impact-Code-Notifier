@@ -121,3 +121,5 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 # security.W021
 SECURE_HSTS_PRELOAD = True
+
+WSGI_APPLICATION = 'website.wsgi.app'
