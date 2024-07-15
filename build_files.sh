@@ -6,8 +6,10 @@ python3.9 -m venv venv
 # activate the virtual environment
 source venv/bin/activate
 
+python3.9 pip install -U pip
+
 # install all deps in the venv
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 
 # collect static files using the Python interpreter from venv
 python manage.py collectstatic --noinput
