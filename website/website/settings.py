@@ -19,8 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "genshin_code_notifier",
-    'django_extensions',
-    'scripts'
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
