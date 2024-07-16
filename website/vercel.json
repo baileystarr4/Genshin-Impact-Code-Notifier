@@ -12,10 +12,6 @@
         "dest": "website/wsgi.py"
       }
     ],
-    "functions": {
-    "scripts/cron.py": {}
-    },
-
       "crons": [
         {
           "path": "/scripts/cron.py",
