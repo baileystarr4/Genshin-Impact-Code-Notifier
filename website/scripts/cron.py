@@ -2,7 +2,9 @@ from .webscraper import *
 from .notifier import *
 from datetime import timedelta
 from django.utils import timezone
-from website.website.wsgi import *
+import os, django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'scripts/cron.settings')
+django.setup()
 from genshin_code_notifier.models import Code
 
 def run():

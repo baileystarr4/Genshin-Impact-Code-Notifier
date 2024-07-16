@@ -1,7 +1,8 @@
 import smtplib, ssl
 from .providers import PROVIDERS
-import os
-from website.website.wsgi import *
+import os, django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'website.settings')
+django.setup()
 from genshin_code_notifier.models import User
 from dotenv import load_dotenv
 
