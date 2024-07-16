@@ -3,6 +3,7 @@ from .notifier import *
 from genshin_code_notifier.models import Code
 from datetime import timedelta
 from django.utils import timezone
+from django.conf import settings
 
 def run():
     """
@@ -15,6 +16,8 @@ def run():
 
     # Continue only if the web scraper was successful.
     if links:
+        # config Django settings
+        settings.configure()
         try:
             # Is the code link already in the database?
             Code.objects.get(link=links[0])
