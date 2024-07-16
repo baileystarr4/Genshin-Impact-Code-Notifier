@@ -6,8 +6,9 @@ import os, django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'website.settings')
 django.setup()
 from genshin_code_notifier.models import Code
+from http.server import BaseHTTPRequestHandler
 
-class handler():
+class handler(BaseHTTPRequestHandler):
 
     def run(self):
         """
