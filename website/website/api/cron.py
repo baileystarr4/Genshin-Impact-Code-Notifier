@@ -1,5 +1,5 @@
-from .webscraper import *
-from .notifier import *
+from website.scripts.webscraper import *
+from website.scripts.notifier import *
 from genshin_code_notifier.models import Code
 from datetime import timedelta
 from django.utils import timezone
