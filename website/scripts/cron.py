@@ -3,7 +3,7 @@ from .notifier import *
 from datetime import timedelta
 from django.utils import timezone
 import os, django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'scripts/cron.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'website.settings')
 django.setup()
 from genshin_code_notifier.models import Code
 
