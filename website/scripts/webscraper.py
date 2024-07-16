@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -19,7 +21,7 @@ class WebScraper:
 
         self.chrome_options.add_argument('headless')
         self.chrome_options.add_argument("--log-level=3")
-        self.driver = webdriver.Chrome(options=self.chrome_options)
+        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=self.chrome_options)
         self.error_notifier = Notifier()
         
         self.links = []
