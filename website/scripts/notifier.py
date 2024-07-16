@@ -1,9 +1,5 @@
 import smtplib, ssl
 from .providers import PROVIDERS
-import django
-django.setup()
-from django.conf import settings
-settings.configure()
 from genshin_code_notifier.models import User
 import os
 from dotenv import load_dotenv

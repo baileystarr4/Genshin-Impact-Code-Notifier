@@ -2,10 +2,6 @@ from .webscraper import *
 from .notifier import *
 from datetime import timedelta
 from django.utils import timezone
-import django 
-django.setup()
-from django.conf import settings
-settings.configure()
 from genshin_code_notifier.models import Code
 
 def run():
