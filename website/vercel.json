@@ -12,12 +12,12 @@
     ],
     "routes": [
       {
-        "src": "/(.*)",
-        "dest": "website/wsgi.py"
-      },
-      {
         "src": "/scripts/(.*)",
         "dest": "scripts/cron.py"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "website/wsgi.py"
       }
     ],
       "crons": [
