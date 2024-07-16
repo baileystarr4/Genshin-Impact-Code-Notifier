@@ -4,17 +4,25 @@
         "src": "website/wsgi.py",
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "15mb"}
+      },
+      {
+        "src": "scripts/cron.py",
+        "use": "@vercel/python"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
         "dest": "website/wsgi.py"
+      },
+      {
+        "src": "/scripts/(.*)",
+        "dest": "scripts/cron.py"
       }
     ],
       "crons": [
         {
-          "path": "/api/cron",
+          "path": "/scripts/cron",
           "schedule": "0 12 * * *"
         }
       ]
