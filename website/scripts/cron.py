@@ -10,12 +10,12 @@ from http.server import BaseHTTPRequestHandler
 
 class handler(BaseHTTPRequestHandler):
 
-    def run(self):
+    def do_GET(self):
         """
         Run the daily task of scraping for new links, notifying subscribers if found, 
         and deleting old links from the database.
         """
-
+        self.send_response(200)
         web_scraper = WebScraper()
         links = web_scraper.find_links()
 
