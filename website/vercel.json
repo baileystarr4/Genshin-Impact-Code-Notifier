@@ -12,7 +12,7 @@
     ],
     "routes": [
       {
-        "src": "/scripts/cron",
+        "src": "/scripts/(.*)",
         "dest": "scripts/cron.py"
       },
       {
