@@ -2,7 +2,6 @@ from .webscraper import *
 from .notifier import *
 from datetime import timedelta
 from django.utils import timezone
-from website.wsgi import *
 from genshin_code_notifier.models import Code
 
 def run():

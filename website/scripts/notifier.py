@@ -1,6 +1,5 @@
 import smtplib, ssl
 from .providers import PROVIDERS
-from website.wsgi import *
 from genshin_code_notifier.models import User
 import os
 from dotenv import load_dotenv
