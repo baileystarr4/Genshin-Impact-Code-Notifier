@@ -21,7 +21,7 @@ class WebScraper:
 
         self.chrome_options.add_argument('headless')
         self.chrome_options.add_argument("--log-level=3")
-        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager(driver_version="114.0.5735.90").install()),options=self.chrome_options)
+        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=self.chrome_options)
         self.error_notifier = Notifier()
         
         self.links = []
