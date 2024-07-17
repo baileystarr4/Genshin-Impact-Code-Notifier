@@ -1,5 +1,5 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -16,33 +16,13 @@ class WebScraper:
         """
         Constructs all necessary attributes for the WebScraper object.
         """
-        self.service = Service(executable_path=r'/opt/chromedriver')
+
         self.chrome_options = webdriver.ChromeOptions()
-        self.chrome_options.add_argument('--headless')
-        self.chrome_options.add_argument('--disable-dev-shm-usage')
-        self.chrome_options.add_argument('--disable-extensions')
-        self.chrome_options.add_argument('--no-sandbox')
-        self.chrome_options.add_argument('--no-cache')
-        self.chrome_options.add_argument('--disable-gpu')
-        self.chrome_options.add_argument('--window-size=1024x768')
-        self.chrome_options.add_argument('--user-data-dir=/tmp/user-data')
-        self.chrome_options.add_argument('--hide-scrollbars')
-        self.chrome_options.add_argument('--enable-logging')
-        self.chrome_options.add_argument('--log-level=0')
-        self.chrome_options.add_argument('--v=99')
-        self.chrome_options.add_argument('--data-path=/tmp/data-path')
-        self.chrome_options.add_argument('--ignore-certificate-errors')
-        self.chrome_options.add_argument('--homedir=/tmp')
-        self.chrome_options.add_argument('--disk-cache-dir=/tmp/cache-dir')
-        self.chrome_options.add_argument('user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36')
-        self.chrome_options.headless = True
-        self.selenium_options = {
-            'request_storage_base_dir': '/tmp', # Use /tmp to store captured data
-            'exclude_hosts': ''
-        }
-        self.chrome_options.binary_location = '/opt/headless-chromium'
-        self.driver = webdriver.Chrome(service=self.service, options=self.chrome_options, seleniumwire_options=self.selenium_options)
-        
+
+        self.chrome_options.add_argument('headless')
+        self.chrome_options.add_argument("--log-level=3")
+        self.storage = { 'request_storage_base_dir': '/tmp' }
+        self.driver = webdriver.Chrome(seleniumwire_options=self.storage, service=ChromeService(ChromeDriverManager(driver_version="114.0.5735.90").install()),options=self.chrome_options)
         self.error_notifier = Notifier()
         
         self.links = []
