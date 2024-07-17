@@ -15,13 +15,13 @@ class WebScraper:
         Constructs all necessary attributes for the WebScraper object.
         """
 
+        self.service = webdriver.ChromeService(executable_path='website/chromedriver.exe')
         self.chrome_options = webdriver.ChromeOptions()
-
         self.chrome_options.add_argument('headless')
         self.chrome_options.add_argument("--log-level=3")
-        self.driver = webdriver.Chrome(options=self.chrome_options)
+        self.driver = webdriver.Chrome(options=self.chrome_options, service=self.service)
+
         self.error_notifier = Notifier()
-        
         self.links = []
 
     def find_links(self):
