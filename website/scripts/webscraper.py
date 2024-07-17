@@ -15,7 +15,7 @@ class WebScraper:
         Constructs all necessary attributes for the WebScraper object.
         """
 
-        self.service = webdriver.ChromeService(executable_path='website/chromedriver.exe')
+        self.service = webdriver.ChromeService(executable_path='/scripts/chromedriver')
         self.chrome_options = webdriver.ChromeOptions()
         self.chrome_options.add_argument('headless')
         self.chrome_options.add_argument("--log-level=3")
