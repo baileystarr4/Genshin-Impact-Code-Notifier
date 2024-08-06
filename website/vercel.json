@@ -3,27 +3,12 @@
       {
         "src": "website/wsgi.py",
         "use": "@vercel/python"
-      },
-      {
-        "src": "scripts/cron.py",
-        "use": "@vercel/python",
-        "config": {"runtime":"python3.12"}
       }
     ],
     "routes": [
       {
-        "src": "/scripts/(.*)",
-        "dest": "scripts/cron.py"
-      },
-      {
         "src": "/(.*)",
         "dest": "website/wsgi.py"
       }
-    ],
-      "crons": [
-        {
-          "path": "/scripts/cron",
-          "schedule": "0 12 * * *"
-        }
-      ]
-  }
+    ]
+}
