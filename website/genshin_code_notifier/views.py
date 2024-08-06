@@ -81,7 +81,7 @@ def contact_me(request):
             emailer = Emailer(name, email, subject, body)
             emailer.send_email()
             messages.success(
-                request,"Success. I will get back to you as soon as possible.")
+                request,"Success! I will get back to you as soon as possible.")
     else:
         form = ContactMe()
     return render(request, "contact_me.html", {'form': form})
