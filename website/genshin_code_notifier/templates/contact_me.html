@@ -11,25 +11,25 @@
     <form method="POST">
       {% csrf_token %}
       <div class="container border rounded border-4 p-5 large_box">
-        <div class="row">
-          <div class="col pe-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-sm-auto pb-4 ">
             <label for="name" class="form-label">Name</label>
             <div id="name">{{ form.name }}</div>
           </div>
-          <div class="col ps-5">
+          <div class="col-md-6 col-sm-auto pb-4">
             <label for="email" class="form-label">Email</label>
             <div id="email">{{ form.email }}</div>
           </div>
         </div>
 
-        <div class="row pt-4">
+        <div class="row pb-4">
           <div class="col">
             <label for="subject" class="form-label">Subject</label>
             <div id="subject">{{ form.subject }}</div>
           </div>
         </div>
 
-        <div class="row pt-4">
+        <div class="row">
           <div class="col">
             <label for="body" class="form-label">Message</label>
             <div id="body">{{ form.body }}</div>
