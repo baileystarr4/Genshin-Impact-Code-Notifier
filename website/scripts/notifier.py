@@ -1,11 +1,8 @@
 import smtplib, ssl
 from .providers import PROVIDERS
-import os, django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'website.settings')
-django.setup()
 from genshin_code_notifier.models import User
 from dotenv import load_dotenv
-
+import os
 class Notifier:
     """
     A class used to send various text notifications.
@@ -27,8 +24,8 @@ class Notifier:
         """
 
         load_dotenv()
-        self.SENDER_EMAIL = os.getenv("SENDER_EMAIL")
-        self.SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
+        self.NOTIFIER_EMAIL = os.getenv("NOTIFIER_EMAIL")
+        self.NOTIFIER_PASSWORD = os.getenv("NOTIFIER_PASSWORD")
         self.SMTP_SERVER = "smtp.gmail.com"
         self.SMTP_PORT = 465
         

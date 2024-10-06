@@ -33,7 +33,7 @@ class Emailer:
         load_dotenv()
         self.SENDER_EMAIL = os.getenv("SENDER_EMAIL")
         self.SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
-        self.RECEIVER_EMAIL = "baileystarrc4@gmail.com"
+        self.RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL")
 
     def _create_email(self):
         message = MIMEMultipart("alternative")
@@ -41,7 +41,8 @@ class Emailer:
         message["From"] = self.SENDER_EMAIL
         message["To"] = self.RECEIVER_EMAIL
 
-        text = (f"Name: {self.name} \n"
+        text = (f"From: Meal Planner \n"
+                f"Name: {self.name} \n"
                 f"Contact: {self.contact}\n"
                 f"{self.body}")
         
