@@ -52,9 +52,9 @@ class Notifier:
                     self.SMTP_SERVER, self.SMTP_PORT, 
                     context=ssl.create_default_context()
                 ) as email:
-                    email.login(self.SENDER_EMAIL, self.SENDER_PASSWORD)
+                    email.login(self.NOTIFIER_EMAIL, self.NOTIFIER_PASSWORD)
                     email.sendmail(
-                        self.SENDER_EMAIL, receiver_email, email_message)
+                        self.NOTIFIER_EMAIL, receiver_email, email_message)
 
     def send_error(self, error_message):
         """
@@ -77,8 +77,8 @@ class Notifier:
         with smtplib.SMTP_SSL(
             self.SMTP_SERVER, self.SMTP_PORT, context=ssl.create_default_context()
         ) as email:
-            email.login(self.SENDER_EMAIL, self.SENDER_PASSWORD)
-            email.sendmail(self.SENDER_EMAIL, receiver_email, email_message)
+            email.login(self.NOTIFIER_EMAIL, self.NOTIFIER_PASSWORD)
+            email.sendmail(self.NOTIFIER_EMAIL, receiver_email, email_message)
 
 
     # Sends a success / welcome text to the new subscriber
@@ -104,5 +104,5 @@ class Notifier:
         with smtplib.SMTP_SSL(
             self.SMTP_SERVER, self.SMTP_PORT, context=ssl.create_default_context()
         ) as email:
-            email.login(self.SENDER_EMAIL, self.SENDER_PASSWORD)
-            email.sendmail(self.SENDER_EMAIL, receiver_email, email_message)
+            email.login(self.NOTIFIER_EMAIL, self.NOTIFIER_PASSWORD)
+            email.sendmail(self.NOTIFIER_EMAIL, receiver_email, email_message)
