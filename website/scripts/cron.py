@@ -26,6 +26,6 @@ def run():
                 new_code = Code(link = link)
                 new_code.save()
 
-    # Delete any link older than 60 days.
-    thirty_days_ago = timezone.now() - timedelta(days=60)
+    # Delete any link older than 30 days.
+    thirty_days_ago = timezone.now() - timedelta(days=30)
     Code.objects.filter(date__lte=thirty_days_ago).delete()
