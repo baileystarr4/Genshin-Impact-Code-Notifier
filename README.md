@@ -48,7 +48,7 @@ A full-stack web app that performs a daily automated scrape for new Genshin Impa
 
 ---
 
-## About This Project  !Python!
+## About This Project
 This project was created to practice **automation using Python, full-stack web development, and cloud deployment**. It demonstrates:  
 - Scheduling automated scraping workflows with Selenium  
 - Managing a user sign-up system through a Django web app 
