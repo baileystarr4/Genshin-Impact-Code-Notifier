@@ -31,9 +31,11 @@
     <nav class="navbar sticky-top navbar-expand-lg border-bottom pe-4 ps-4">
       <!-- nav brand / title -->
       <a class="navbar-brand m-0" href="/">
-        <span class="nav_brand tw-bold white_text">
-          <img src="{% static '/images/Primogem.ico' %}" class="nav_img">
-          Genshin Impact Code Notifier
+        <span class="nav_brand fw-bold white_text d-flex align-items-center">
+          <img src="{% static '/images/Primogem.ico' %}" 
+               class="nav_img me-2" 
+               style="height: 1.2rem; width: auto;">
+          <span class="fs-6 fs-lg-5">Genshin Impact Code Notifier</span>
         </span>
       </a>
 
@@ -54,18 +56,21 @@
         id="navbar"
       >
         <div class="navbar-nav">
-          <a 
-          class="nav-item nav-link nav_link white_text" 
-          id="home" 
-          href="/">Home</a>
-          <a 
-          class="nav-item nav-link nav_link white_text" 
-          id="unsubscribe" 
-          href="/unsubscribe">Unsubscribe</a>
-          <a 
-          class="nav-item nav-link nav_link white_text" 
-          id="contact_me" 
-          href="/contact_me">Contact Me</a>
+          <a class="nav-item nav-link nav_link white_text fs-6 fs-lg-5" 
+             id="home" 
+             href="/">
+            Home
+          </a>
+          <a class="nav-item nav-link nav_link white_text fs-6 fs-lg-5" 
+             id="unsubscribe" 
+             href="/unsubscribe">
+            Unsubscribe
+          </a>
+          <a class="nav-item nav-link nav_link white_text fs-6 fs-lg-5" 
+             id="contact_me" 
+             href="/contact_me">
+            Contact Me
+          </a>
         </div>
       </div>
     </nav>
