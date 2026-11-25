@@ -3,14 +3,14 @@
 <p align="center">
   <img src="screenshots/home.png" width="250" />
   <img src="screenshots/unsubscribe.png" width="250" />
+  <img src="screenshots/contact_me.png" width="250" />
   <br>
-  <img src="screenshots/text.png" height="500" />
-  <img src="screenshots/mobile_top.png" height="500" />
-  <img src="screenshots/mobile_bottom.png" height="500" />
+  <img src="screenshots/mobile_menu.png" height="500" />
+  <img src="screenshots/mobile_2.png" height="500" />
 </p>  
 <br>
 
-A full-stack web app that performs a daily automated scrape for new Genshin Impact redemption codes and notifies subscribed users via free text messages.
+A full-stack web app that automatically scrapes new Genshin Impact redemption codes once a day and notifies subscribers by email.
 
 ---
 
@@ -21,7 +21,7 @@ A full-stack web app that performs a daily automated scrape for new Genshin Impa
 
 ##  Key Features  
 - Automated daily scrape at 12 PM EST for new Genshin Impact codes  
-- Free text message notifications for signed-up users 
+- Free email notifications for signed-up users 
 - Users can unsubscribe via the website at any time
 - PostgreSQL database hosted on [Neon](https://neon.com) for storing codes and user records  
 - Selenium-powered scraping for automated data collection  
@@ -44,7 +44,7 @@ A full-stack web app that performs a daily automated scrape for new Genshin Impa
 1. Every day at **12 PM EST**, a locally scheduled task uses Selenium to scrape [Brutefact's Redeem Codes and Web Events page on HoYoLAB](https://www.hoyolab.com/creatorCollection/535336) for new redemption codes.  
 2. Extracted codes are parsed and validated against the PostgreSQL database hosted through Neon.
 3. If new codes are found, they are added to the database.  
-4. Users who signed up via the website receive free text alerts right after the daily check.  
+4. Users who signed up via the website receive free email alerts right after the daily check.  
 
 ---
 
