@@ -22,7 +22,7 @@ def home(request):
                 u.save()
                 
                 n = Notifier()
-                n.send_welcome_text(email, first_name)
+                n.send_welcome_email(email, first_name)
                 messages.success(
                     request, 
                     """Success! You will receive email notifications when a 
