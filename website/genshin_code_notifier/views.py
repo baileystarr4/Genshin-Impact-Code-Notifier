@@ -9,34 +9,28 @@ def home(request):
     if request.method == 'POST':
         form = SignUp(request.POST)
         if form.is_valid():
-            phone_number = form.cleaned_data['phone_number']
+            email = form.cleaned_data['signup_email']
             first_name = form.cleaned_data['first_name']
-            carrier = form.cleaned_data['carrier']
-
             try:
                 # Is the phone number already in the database?
-                User.objects.get(phone_number=phone_number)
+                User.objects.get(email=email)
                 
             except:
-                if carrier == "default":
-                    messages.error(request, "Please choose a carrier.")
-                else:
-                    u = User(
-                        phone_number=phone_number, 
-                        first_name=first_name, 
-                        carrier=carrier)
-                    u.save()
-                    
-                    n = Notifier()
-                    n.send_welcome_text(phone_number, first_name, carrier)
-                    messages.success(
-                        request, 
-                        """Success! You will receive text notifications when a 
-                           new code is released.""")
+                u = User(
+                    email=email, 
+                    first_name=first_name)
+                u.save()
+                
+                n = Notifier()
+                n.send_welcome_text(email, first_name)
+                messages.success(
+                    request, 
+                    """Success! You will receive email notifications when a 
+                        new code is released.""")
 
             else:    
                 messages.error(
-                    request, "This phone number is already a subscriber.")
+                    request, "This email is already a subscriber.")
                 
         else:
             for msg in form.error_messages:
@@ -49,18 +43,18 @@ def unsubscribe(request):
     if request.method == 'POST':
         form = Unsubscribe(request.POST)
         if form.is_valid():
-            phone_number = form.cleaned_data['phone_number']
+            email = form.cleaned_data['email']
 
             try:
                 # Is the phone number even in the database?
-                User.objects.get(phone_number=phone_number).delete()
+                User.objects.get(email=email).delete()
             except:
                 messages.error(
-                    request, "This phone number is not a subscriber.")
+                    request, "This email is not a subscriber.")
             else:
                 messages.success(
                     request, 
-                    "Success. You will no longer receive text notifications.")
+                    "Success. You will no longer receive email notifications.")
         else:
             for msg in form.error_messages:
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")
