@@ -43,7 +43,7 @@ def unsubscribe(request):
     if request.method == 'POST':
         form = Unsubscribe(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
+            email = form.cleaned_data['unsubscribe_email']
 
             try:
                 # Is the phone number even in the database?
@@ -68,7 +68,7 @@ def contact_me(request):
 
         if form.is_valid():
             name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
+            email = form.cleaned_data['contactme_email']
             subject = form.cleaned_data['subject']
             body = form.cleaned_data['body']
         
