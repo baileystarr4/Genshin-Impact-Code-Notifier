@@ -1,6 +1,7 @@
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.utils import formataddr
 from genshin_code_notifier.models import User
 from dotenv import load_dotenv
 import os
@@ -39,7 +40,7 @@ class Notifier:
 
         message = MIMEMultipart("alternative")
         message["Subject"] = subject
-        message["From"] = self.NOTIFIER_EMAIL
+        message["From"] = formataddr(("Genshin Code Notifier",self.NOTIFIER_EMAIL))
         message["To"] = to
         message.attach(MIMEText(body, "plain", "utf-8"))
 
