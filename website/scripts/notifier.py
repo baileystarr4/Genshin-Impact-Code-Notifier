@@ -1,21 +1,23 @@
 import smtplib, ssl
-from .providers import PROVIDERS
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from genshin_code_notifier.models import User
 from dotenv import load_dotenv
 import os
+
 class Notifier:
     """
-    A class used to send various text notifications.
+    A class used to send various email notifications.
 
     Methods
     ----------
     send_links(links)
-        Sends a text for each code redemption link found to all subscribers.
+        Sends an email for each code redemption link found to all subscribers.
     send_error(error_message)
-        Sends a text containing an error message to me when the Hoyolab 
+        Sends an email containing an error message to me when the Hoyolab 
         website's HTML changes and causes the web scarper fail.
     send_welcome_text(phone_number, first_name, provider)
-        Sends a welcome text to new subscribers.
+        Sends a welcome email to new subscribers.
 
     """
     def __init__(self):
@@ -26,12 +28,45 @@ class Notifier:
         load_dotenv()
         self.NOTIFIER_EMAIL = os.getenv("NOTIFIER_EMAIL")
         self.NOTIFIER_PASSWORD = os.getenv("NOTIFIER_PASSWORD")
+        self.RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL")
         self.SMTP_SERVER = "smtp.gmail.com"
         self.SMTP_PORT = 465
         
+    def _create_email(self, to, subject, body):
+        """
+        Builds a formatted email and returns it as a string.
+        """
+
+        message = MIMEMultipart("alternative")
+        message["Subject"] = subject
+        message["From"] = self.NOTIFIER_EMAIL
+        message["To"] = to
+        message.attach(MIMEText(body, "plain", "utf-8"))
+
+        return message.as_string()
+
+    def _send(self, messages):
+        """
+        Logs in once and sends a list of (recipient, email_string) pairs.
+        A failure for one recipient is logged and doesn't stop the rest.
+        """
+
+        with smtplib.SMTP_SSL(
+            self.SMTP_SERVER, self.SMTP_PORT,
+            context=ssl.create_default_context()
+        ) as email:
+            email.login(self.NOTIFIER_EMAIL, self.NOTIFIER_PASSWORD)
+
+            for recipient, message in messages:
+                try:
+                    email.sendmail(self.NOTIFIER_EMAIL, recipient, message)
+                except Exception as e:
+                    print(f"Failed to email {recipient}: {e}")
+
     def send_links(self, links):
         """
-        Sends a text for each code redemption link found to all subscribers.
+        Sends one email listing all new code redemption links to every
+        subscriber.
 
         Parameters
         ----------
@@ -39,27 +74,24 @@ class Notifier:
             a list of the new code redemption links
         """
 
-        for user in User.objects.all():
-            number = user.phone_number
-            provider = user.carrier
-            receiver_email = f'{number}@{PROVIDERS.get(provider).get("sms")}'
+        body = ("Here are the new Genshin Impact codes:\n\n"
+                + "\n".join(links))
 
-            for link in links:
-                email_message = (f"To:{receiver_email}\n"
-                                 f"Here's the new Genshin code!\n{link}")
-                
-                with smtplib.SMTP_SSL(
-                    self.SMTP_SERVER, self.SMTP_PORT, 
-                    context=ssl.create_default_context()
-                ) as email:
-                    email.login(self.NOTIFIER_EMAIL, self.NOTIFIER_PASSWORD)
-                    email.sendmail(
-                        self.NOTIFIER_EMAIL, receiver_email, email_message)
+        subscribers = (User.objects
+                       .exclude(email__isnull=True)
+                       .exclude(email=""))
+
+        messages = [
+            (user.email,
+             self._create_email(user.email, "New Genshin codes!", body))
+            for user in subscribers
+        ]
+        self._send(messages)
 
     def send_error(self, error_message):
         """
-        Sends a text containing an error message to me when the Hoyolab 
-        website's HTML changes and causes the web scarper fail.
+        Sends an email containing an error message to me when the Hoyolab
+        website's HTML changes and causes the web scraper to fail.
 
         Parameters
         ----------
@@ -67,42 +99,25 @@ class Notifier:
             the error that caused the webscraper to fail
         """
 
-        me = User.objects.get(first_name="Admin")
+        message = self._create_email(
+            self.RECEIVER_EMAIL, "! Web Scraper Error !", str(error_message))
+        self._send([(self.RECEIVER_EMAIL, message)])
 
-        receiver_email = f'{me.phone_number}@{PROVIDERS.get(me.carrier).get("sms")}'
-        
-        email_message = (f"To:{receiver_email}\n! Web Scraper Error !\n"
-                            f"{error_message}")
-        
-        with smtplib.SMTP_SSL(
-            self.SMTP_SERVER, self.SMTP_PORT, context=ssl.create_default_context()
-        ) as email:
-            email.login(self.NOTIFIER_EMAIL, self.NOTIFIER_PASSWORD)
-            email.sendmail(self.NOTIFIER_EMAIL, receiver_email, email_message)
-
-
-    # Sends a success / welcome text to the new subscriber
-    def send_welcome_text(self, phone_number, first_name, provider):
+    def send_welcome_email(self, email, first_name):
         """
-        Sends a welcome text to new subscribers.
+        Sends a welcome email to new subscribers.
 
         Parameters
         ----------
-        phone_number : str
-            the user's phone number
+        email : str
+            the user's email address
         first_name : str
             the user's first name
-        provider : str
-            the user's phone provider
-        """    
+        """
 
-        receiver_email = f'{phone_number}@{PROVIDERS.get(provider).get("sms")}'
+        body = (f"Welcome {first_name}!\n\n"
+                "You will receive new codes as they are released.")
 
-        email_message = (f"To:{receiver_email}\n\nWelcome {first_name}!\n"
-                          "You will receive new codes as they are released.")
-        
-        with smtplib.SMTP_SSL(
-            self.SMTP_SERVER, self.SMTP_PORT, context=ssl.create_default_context()
-        ) as email:
-            email.login(self.NOTIFIER_EMAIL, self.NOTIFIER_PASSWORD)
-            email.sendmail(self.NOTIFIER_EMAIL, receiver_email, email_message)
+        message = self._create_email(
+            email, "Welcome to Genshin Code Notifier!", body)
+        self._send([(email, message)])

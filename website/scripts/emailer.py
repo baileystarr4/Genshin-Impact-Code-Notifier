@@ -41,7 +41,7 @@ class Emailer:
         message["From"] = self.SENDER_EMAIL
         message["To"] = self.RECEIVER_EMAIL
 
-        text = (f"From: Meal Planner \n"
+        text = (f"From: Genshin Notifier \n"
                 f"Name: {self.name} \n"
                 f"Contact: {self.contact}\n"
                 f"{self.body}")

@@ -4,11 +4,10 @@ from django.db import models
 
 class User(models.Model):
     first_name = models.CharField(max_length=20)
-    phone_number = models.CharField(max_length=10)
-    carrier = models.CharField(max_length=20)
+    email = models.EmailField(unique=True,null=True, blank=True)
 
     def __str__(self):
-        return self.phone_number
+        return self.email
 
 class Code(models.Model):
     link = models.CharField(max_length=200)
